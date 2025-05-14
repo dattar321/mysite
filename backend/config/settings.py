@@ -1,8 +1,12 @@
+import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = "django-insecure-)vpiuqo8z7ffmzk6!5#vvl(_*strqx60kcsh4fmols+&6ytk*h"
+load_dotenv(os.path.join(BASE_DIR, '.env'))
+
+SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = True
 ALLOWED_HOSTS = []
 INSTALLED_APPS = [
@@ -13,7 +17,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "corsheaders",
-    "rest_framework"
+    "rest_framework",
+    "drf_yasg",
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -47,10 +52,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'naisdb',
-        'USER': 'teq',
-        'PASSWORD': '123456',
+        'USER': os.getenv('USER_NAME'),
+        'PASSWORD': os.getenv('PASSWORD'),
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': os.getenv('PORT'),
     }
 }
 AUTH_PASSWORD_VALIDATORS = [
